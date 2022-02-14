@@ -13,18 +13,20 @@ const mongoose = require('mongoose');
 mongoose
     .connect(config.mongoURI)
     .then(() => {
-        console.log("MongoDB 연결!");
+        console.log("MongoDB 연결");
     })
     .catch((err) => {
         console.log(err);
     })
 
 app.get("/", (req, res) => {
-    res.send("보일러 플레이트 튜토리얼!!!");
+    res.send("보일러 플레이트 튜토리얼");
 });
 
+// 회원가입 라우터
 app.post('/register', (req, res) => {
     const user = new User(req.body);
+
     user.save((err, doc) => {
         if (err) {
             return res.json({ success: false, err });
@@ -36,5 +38,5 @@ app.post('/register', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`서버 실행 @ ${port}번 포트`);
+    console.log(`서버 실행 @ 포트 ${port}번`);
 });
