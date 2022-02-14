@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 5000;
 const bodyParser = require('body-parser');
+const config = require('./config/key');
 
 const { User } = require('./models/User');
 
@@ -10,12 +11,7 @@ app.use(bodyParser.json());
 
 const mongoose = require('mongoose');
 mongoose
-    .connect('mongodb+srv://allnighter1:test1111@boiler-plate-tutorial.kwl3n.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
-        // useNewUrlParser: true,
-        // useUnifieldTopology: true,
-        // useCreateIndex: true,
-        // useFindAndModify: false,
-    })
+    .connect(config.mongoURI)
     .then(() => {
         console.log("MongoDB 연결!");
     })
