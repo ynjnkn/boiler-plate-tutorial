@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
+const moment = require("moment");
 
 const userSchema = mongoose.Schema({
     name: {
@@ -76,13 +77,12 @@ userSchema.methods.generateToken = function (callback) {
     var user = this;
     // jsonwebtoken을 이용해서 토큰 생성
     var token = jwt.sign(user._id.toHexString(), 'secretToken');
-    console.log("user", user);
+    var oneHour = moment().add(1, 'hour').valueOf();
     // 해당 유저의 토큰 저장 1
+    user.tokenExp = oneHour;
     user.token = token;
-    console.log("user", user);
     // 해당 유저의 토큰 저장 2 (왜 한 번 더 저장?)
     user.save(function (err, user) {
-        console.log("user", user);
         if (err) return callback(err);
         callback(null, user);
     });
@@ -90,6 +90,7 @@ userSchema.methods.generateToken = function (callback) {
 
 userSchema.statics.findByToken = function (token, callback) {
     var user = this;
+    console.log("토큰 디코드 실행");
     jwt.verify(token, 'secretToken', function (err, decoded) {
         user.findOne({ "_id": decoded, "token": token }, function (err, user) {
             if (err) return callback(error);
