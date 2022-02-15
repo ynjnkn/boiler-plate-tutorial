@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 5000;
+const cors = require("cors");
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const config = require('./config/key');
@@ -8,6 +9,12 @@ const { auth } = require('./middleware/auth');
 
 const { User } = require('./models/User');
 
+const corsOption = {
+    origin: "http://localhost:3000",
+    credentials: true,
+};
+
+app.use(cors(corsOption));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
