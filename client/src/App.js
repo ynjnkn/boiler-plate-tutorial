@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import LandingPage from "./components/views/LandingPage/LandingPage.js";
 import LoginPage from "./components/views/LoginPage/LoginPage.js";

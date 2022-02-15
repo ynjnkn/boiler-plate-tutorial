@@ -22,6 +22,11 @@ mongoose
         console.log(err);
     })
 
+app.get("/api/hello", (req, res) => {
+    res.send("Axios 맛보기");
+});
+
+
 app.get("/", (req, res) => {
     res.send("보일러 플레이트 튜토리얼");
 });
