@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { setCookie, getCookie, deleteCookie } from "../../../utils/cookie";
+import { actionCreators as userActions } from "../../../redux/modules/user";
 
 function LandingPage() {
+  const dispatch = useDispatch();
+  const userId = useSelector((state) => state.user.user?.userId);
 
-  // useEffect(() => {
-  //   axios
-  //     .get('http://localhost:5000/api/hello')
-  //     .then((response) => {
-  //       console.log(response.data);
-  //     })
-  // }, [])
+  const logOut = () => {
+    dispatch(userActions.logOut());
+  };
 
 
   return (
@@ -23,6 +24,10 @@ function LandingPage() {
       }}
     >
       <h2>시작 페이지</h2>
+      <button onClick={logOut}>
+        로그아웃
+      </button>
+
     </div>
 
   )

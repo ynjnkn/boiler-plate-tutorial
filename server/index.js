@@ -29,10 +29,6 @@ mongoose
         console.log(err);
     })
 
-app.get("/api/hello", (req, res) => {
-    res.send("Axios 맛보기");
-});
-
 
 app.get("/", (req, res) => {
     res.send("보일러 플레이트 튜토리얼");
@@ -103,14 +99,11 @@ app.post('/api/users/login', (req, res) => {
                     console.log("토큰 생성 실패");
                     return res.status(400).send(err);
                 };
-                // 토큰을 쿠키에 저장
-                console.log("쿠키에 토큰 저장");
-                // res.cookie("x_authExp", user.tokenExp);
+                // 클라이언트에게 토큰 전달
+                console.log("클라이언트에게 토큰 전달");
                 res
-                    .cookie("x_auth", user.token)
                     .status(200)
-                    .json({ loginSuccess: true, userId: user._id });
-                console.log("*** 로그인 완료 ***");
+                    .json({ loginSuccess: true, token: user.token });
             });
         });
     });
@@ -119,16 +112,16 @@ app.post('/api/users/login', (req, res) => {
 
 // 로그아웃 라우터
 app.get('/api/users/logout', auth, (req, res) => {
+    console.log("로그아웃 실행");
     User.findOneAndUpdate(
         { _id: req.user._id },
-        { token: "", tokenExp: "" },
+        { token: "" },
         (err, doc) => {
             if (err) return res.json({ success: false, err });
             return res.status(200).send({
                 success: true
             });
         });
-    console.log("*** 로그아웃 완료 ***");
 });
 
 

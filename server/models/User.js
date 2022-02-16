@@ -75,11 +75,14 @@ userSchema.methods.comparePassword = function (plainPassword, callback) {
 userSchema.methods.generateToken = function (callback) {
     console.log("콜백 generateToken() 실행");
     var user = this;
+    console.log("userId", user._id);
+    const payload = {
+        userId: user._id,
+    };
     // jsonwebtoken을 이용해서 토큰 생성
-    var token = jwt.sign(user._id.toHexString(), 'secretToken');
-    var oneHour = moment().add(1, 'hour').valueOf();
+    var token = jwt.sign(payload, 'secretToken');
+    console.log("token", token);
     // 해당 유저의 토큰 저장 1
-    // user.tokenExp = oneHour;
     user.token = token;
     // 해당 유저의 토큰 저장 2 (왜 한 번 더 저장?)
     user.save(function (err, user) {
