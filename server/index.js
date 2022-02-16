@@ -104,8 +104,8 @@ app.post('/api/users/login', (req, res) => {
                     return res.status(400).send(err);
                 };
                 // 토큰을 쿠키에 저장
-                console.log("쿠키에 토큰, 토큰만료시간 저장");
-                res.cookie("x_authExp", user.tokenExp);
+                console.log("쿠키에 토큰 저장");
+                // res.cookie("x_authExp", user.tokenExp);
                 res
                     .cookie("x_auth", user.token)
                     .status(200)

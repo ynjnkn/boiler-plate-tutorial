@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import { actionCreators as userActions } from "../../../redux/modules/user";
+import { useDispatch } from "react-redux";
 
 function LoginPage() {
-
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,12 +17,12 @@ function LoginPage() {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    // dispatch(loginRequestBody)
     let loginRequestBody = {
       email,
       password,
     }
-    console.log("loginRequestBody", loginRequestBody);
+    // console.log("loginRequestBody", loginRequestBody);
+    dispatch(userActions.loginMiddleware(loginRequestBody));
   }
 
   return (
