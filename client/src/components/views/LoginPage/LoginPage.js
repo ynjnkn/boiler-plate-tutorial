@@ -47,7 +47,7 @@ function LoginPage() {
         <label>비밀번호</label>
         <input type="password" value={password} onChange={onChangePassword} />
         <br />
-        <button>로그인</button>
+        <button type="submit">로그인</button>
       </form>
     </div>
   )

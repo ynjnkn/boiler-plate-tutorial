@@ -18,8 +18,6 @@ const logIn = createAction(LOG_IN, (user) => ({ user }));
 // *** MIDDLEWARES ***
 const loginMiddleware = (loginRequestBody) => {
     return (dispatch, getState, { history }) => {
-        // console.log("loginMiddleware 연결");
-        // console.log("loginRequestBody", loginRequestBody);
         axios.post('http://localhost:5000/api/users/login', loginRequestBody)
             .then((response) => {
                 let token = response.data;
@@ -31,6 +29,7 @@ const loginMiddleware = (loginRequestBody) => {
             })
     };
 };
+
 
 
 // *** REDUCER ***
@@ -53,6 +52,5 @@ export default handleActions(
 
 
 export const actionCreators = {
-    logIn,
     loginMiddleware,
 };
